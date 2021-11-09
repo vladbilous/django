@@ -20,7 +20,7 @@ class Book(models.Model):
 
     class Meta:
         verbose_name = 'book'
-        verbose_name_plural = 'list of books'
+        verbose_name_plural = 'books'
 
     # відображення в адмінці
     def __str__(self):
@@ -32,4 +32,31 @@ class Book(models.Model):
         return (
             f'{cls_name}(title="{self.title}". '
             f'publication_year={self.publication_year})'
+        )
+
+
+class Reader(models.Model):
+    book_title = models.ForeignKey(Book,
+                                   on_delete=models.CASCADE,
+                                   db_column='book_title',
+                                   verbose_name='link to book')
+    user_id = models.ForeignKey(User,
+                                on_delete=models.CASCADE,
+                                db_column='user_id',
+                                verbose_name='link to user')
+
+    class Meta:
+        verbose_name = 'reader'
+        verbose_name_plural = 'readers'
+
+    # відображення в адмінці
+    def __str__(self):
+        return f'Reader <{self.user_id} reads "{self.book_title}">'
+
+    # записується в логування зазвичай (для перегляду в консолі) типу дебаг
+    def __repr__(self):
+        cls_name = type(self).__name__
+        return (
+            f'{cls_name}(book_title="{self.book_title}". '
+            f'user_id={self.user_id})'
         )

@@ -13,6 +13,9 @@ python manage.py runserver 8001
 створити суперюзера
 python manage.py createsuperuser
 ------------------------------------
+переглянути інформацію про міграції
+python manage.py showmigrations
+------------------------------------
 створити миграцию
 python manage.py makemigrations blog
 -------------------------------------
@@ -25,9 +28,36 @@ python manage.py migrate blog
 виклик шелу
 python manage.py shell
 команди в шелу:
+приклад1:
 from blog.models import Book
 first_book = Bool.objects.first()
 first_book
+приклад2:
+>>> from blog.models import Book, Reader, User
+>>> qs = User.objects.all()
+>>> str(qs.query)
+>>> qs = User.objects.filter(first_name='admin')
+>>> str(qs.query)
+>>> qs = User.objects.filter(first_name='admin').only('first_name')
+>>> str(qs.query)
+>>> Book.objects.all()
+>>> Book.objects.count()
+>>> len(Book.objects.all())
+>>> Book.objects.create(title='New book', publication_year=1999)
+>>> book_a = Book(title='Book A' , publication_year = '2000')
+>>> book_b = Book(title='Book B', publication_year = '1999')
+>>> book_c = Book(title='Book C', publication_year='2005')
+>>> Book.objects.bulk_create([book_a, book_b, book_c])
+>>> book_a = Book.objects.get(title='Book A')
+>>> book_b = Book.objects.get(title='Book B')
+>>> book_a.title += 'tail'
+>>> book_a.save(['title'])
+>>> user = User.objects.first()
+>>> user.username = 'tester'
+>>> user.email = 'test@gmail.com'
+>>> user.id = None
+>>> user.save()
+
 --------------------------------------
 --------------------------------------
 --------------------------------------

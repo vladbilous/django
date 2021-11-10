@@ -36,14 +36,16 @@ class Book(models.Model):
 
 
 class Reader(models.Model):
-    book_title = models.ForeignKey(Book,
-                                   on_delete=models.CASCADE,
-                                   db_column='book_title',
-                                   verbose_name='link to book')
-    user_id = models.ForeignKey(User,
-                                on_delete=models.CASCADE,
-                                db_column='user_id',
-                                verbose_name='link to user')
+    book = models.ForeignKey(Book,
+                             on_delete=models.CASCADE,
+                             db_column='book_title',
+                             related_name='read_rows',
+                             verbose_name='link to book')
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             db_column='user_id',
+                             related_name='read_rows',
+                             verbose_name='link to user')
 
     class Meta:
         verbose_name = 'reader'
@@ -51,12 +53,12 @@ class Reader(models.Model):
 
     # відображення в адмінці
     def __str__(self):
-        return f'Reader <{self.user_id} reads "{self.book_title}">'
+        return f'Reader <{self.user} reads "{self.book}">'
 
     # записується в логування зазвичай (для перегляду в консолі) типу дебаг
     def __repr__(self):
         cls_name = type(self).__name__
         return (
-            f'{cls_name}(book_title="{self.book_title}". '
-            f'user_id={self.user_id})'
+            f'{cls_name}(book="{self.book}". '
+            f'user_id={self.user})'
         )

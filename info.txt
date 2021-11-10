@@ -57,6 +57,39 @@ first_book
 >>> user.email = 'test@gmail.com'
 >>> user.id = None
 >>> user.save()
+приклад день 3:
+>>> from blog.models import Book, Reader
+>>>
+>>> from django.contrib.auth import get_user_model
+>>> User = get_user_model()
+>>>
+>>> User.objects.count()
+(0.000) SELECT COUNT(*) AS "__count" FROM "auth_user"; args=()
+>>> Reader.objects.count()
+>>> Book.objects.count()
+>>> import pprint
+>>> pprint.pprint(book_ls)
+>>> admin_user = User.objects.get(username='admin')
+>>> readers_data = [(0, 'Book A', admin_user.id), (1, 'Book B', admin_user.id), (2, 'Book C', admin_user.id)]
+>>> readers = [Reader(*item) for item in readers_data]
+>>> Reader.objects.bulk_create(readers)
+>>> Reader.objects.count()
+>>> Reader.objects.only('user_id').all()
+>>> reader = Reader.objects.first()
+>>> dir(reader)
+>>> reader.user_id_id
+>>> user = reader.user_id
+>>> dir(user)
+>>> user.reader_set.all()
+>>> user.reader_set.count()
+>>> book.reader_set.count()
+>>> book.reader_set.values('user_id__username')
+
+
+
+
+
+
 
 --------------------------------------
 --------------------------------------

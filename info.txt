@@ -84,6 +84,8 @@ first_book
 >>> user.reader_set.count()
 >>> book.reader_set.count()
 >>> book.reader_set.values('user_id__username')
+>>> book_a.readers.values('user__username')
+>>> book_a.readers.values_list('user__username', flat=True)
 
 
 

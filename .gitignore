@@ -1,3 +1,5 @@
 venv/
 .idea/
 microblog/**/__pycach__/*
+microblog/microblog/__pycache__/*
+microblog/blog/__pycache__/*

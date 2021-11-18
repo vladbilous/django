@@ -1,3 +1,11 @@
+ 11.11.2021 - зробив
+
+python -m venv venv
+pip install -U  --upgrade pip
+
+pip install -r requirements.txt
+
+
 дізнатись який питон використовується
 which python 
 -------------------------------------
